@@ -12,6 +12,10 @@ void UStartOverlay::NativeConstruct()
 	{
 		PlayButton->OnClicked.AddDynamic(this, &UStartOverlay::StartGameButton);
 	}
+	if (QuitButton)
+	{
+		QuitButton->OnClicked.AddDynamic(this, &UStartOverlay::QuitGameButton);
+	}
 }
 
 void UStartOverlay::StartGameButton()
@@ -26,4 +30,15 @@ void UStartOverlay::StartGameButton()
 	}
 
 	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+}
+
+void UStartOverlay::QuitGameButton()
+{
+	RemoveFromParent();
+
+
+	if (APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
+	{
+		UKismetSystemLibrary::QuitGame(this, PlayerController, EQuitPreference::Quit, false);
+	}
 }

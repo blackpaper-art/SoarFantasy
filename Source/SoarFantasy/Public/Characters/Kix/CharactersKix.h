@@ -36,7 +36,7 @@ public:
 	class UCameraComponent* MainPlatformCamera;
 
 	//Movement
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Jump")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Jump")
 	bool bDoingDoubleJump = false;
 	UFUNCTION(BlueprintCallable)
 	void MakeStuck(bool bStuck) { bIsStuck = bStuck; }
