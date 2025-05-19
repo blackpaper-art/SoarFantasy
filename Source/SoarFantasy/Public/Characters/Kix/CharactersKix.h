@@ -25,6 +25,7 @@ public:
 
 	//Input FUNC
 	virtual void Jump() override;
+	virtual void Landed(const FHitResult& Hit) override;
 	void Down();
 
 	void ActiveKixsMag();

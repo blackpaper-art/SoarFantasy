@@ -36,7 +36,7 @@ ACharactersKix::ACharactersKix()
 		MainPlatformCamera->SetWorldLocation(FVector(0, 700, 200));
 	}
 
-	
+	JumpMaxCount = 2;
 }
 
 void ACharactersKix::BeginPlay()
@@ -50,6 +50,7 @@ void ACharactersKix::BeginPlay()
 
 	bIsStuck = false;
 	StartLocation = GetActorLocation();
+
 }
 
 
@@ -98,13 +99,28 @@ void ACharactersKix::UpdateMakeCoinMovetoPlayer()
 
 void ACharactersKix::Jump()
 {
-	Super::Jump();
+	if (CanJump())
+	{
+		const bool bWillBeDoubleJump = (JumpCurrentCount + 1 == JumpMaxCount);
 
+		Super::Jump();
+
+		bDoingDoubleJump = bWillBeDoubleJump;
+
+		GEngine->AddOnScreenDebugMessage(5, 1.f, FColor::Green,
+			FString::Printf(TEXT("bDoingDoubleJump: %s"), bDoingDoubleJump ? TEXT("true") : TEXT("false")));
+	}
+}
+
+void ACharactersKix::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	bDoingDoubleJump = false;
 }
 
 void ACharactersKix::Down()
 {
-	LaunchCharacter(FVector(0.f, 0.f, -1000.f), true, true);
+	LaunchCharacter(FVector(0.f, 0.f, -2000.f), true, true);
 }
 
 void ACharactersKix::AddCoinScore(int32 Score)
@@ -197,7 +213,7 @@ void ACharactersKix::ActiveKixsMag()
 	}
 	bMagnetActive = true;
 
-	GetWorld()->GetTimerManager().SetTimer(MagnetTimerHandle, this, &ACharactersKix::DeactivateKixsMag, 3.f, false);
+	GetWorld()->GetTimerManager().SetTimer(MagnetTimerHandle, this, &ACharactersKix::DeactivateKixsMag, 30.f, false);
 }
 
 void ACharactersKix::InitializeSFOverlay()
