@@ -39,6 +39,9 @@ public:
 	TObjectPtr<UInputAction> DownAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	TObjectPtr<UInputAction> DashAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	TObjectPtr<UInputAction> PauseAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
@@ -53,6 +56,7 @@ protected:
 	void Jump();
 	void PauseGame();
 	void Down();
+	void Dash();
 
 private:
 	bool bPauseMenuActivating = false;

@@ -58,13 +58,12 @@ void ACharactersKix::Tick(float DeltaTime)
 {
 	UpdateMakeCoinMovetoPlayer();
 	CurrentLocation = GetActorLocation();
-	//StartLocation.Z = CurrentLocation.Z;
 
-	if (!bIsStuck)
+	/*if (!bIsStuck && !bIsDash)
 	{
 		FVector NewLocation = FMath::VInterpTo(CurrentLocation, StartLocation, DeltaTime, .5f);
 		SetActorLocation(NewLocation);
-	}
+	}*/
 	GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Red, CurrentLocation.ToString());
 	GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Blue, CurrentLocation.ToString());
 	GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Black, StartLocation.ToString());
@@ -121,6 +120,14 @@ void ACharactersKix::Landed(const FHitResult& Hit)
 void ACharactersKix::Down()
 {
 	LaunchCharacter(FVector(0.f, 0.f, -2000.f), true, true);
+}
+
+void ACharactersKix::Dash()
+{
+	bIsDash = true;
+	LaunchCharacter(FVector(30000.f, 0.f, 0.f), true, true);
+	FVector Forward = GetActorForwardVector();
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString::Printf(TEXT("Forward: %s"), *Forward.ToString()));
 }
 
 void ACharactersKix::AddCoinScore(int32 Score)

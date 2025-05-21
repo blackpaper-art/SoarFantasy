@@ -20,6 +20,8 @@ void AKixPlayerController::SetupInputComponent()
 		EnhancedInputComp->BindAction(JumpAction, ETriggerEvent::Started, this, &AKixPlayerController::Jump);
 		//Down
 		EnhancedInputComp->BindAction(DownAction, ETriggerEvent::Started, this, &AKixPlayerController::Down);
+		//Dash
+		EnhancedInputComp->BindAction(DashAction, ETriggerEvent::Started, this, &AKixPlayerController::Dash);
 		//Pause
 		EnhancedInputComp->BindAction(PauseAction, ETriggerEvent::Started, this, &AKixPlayerController::PauseGame);
 	}
@@ -80,6 +82,11 @@ void AKixPlayerController::PauseGame()
 void AKixPlayerController::Down()
 {
 	CurrentChara->Down();
+}
+
+void AKixPlayerController::Dash()
+{
+	CurrentChara->Dash();
 }
 
 void AKixPlayerController::SetPauseBoolFalse()

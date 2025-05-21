@@ -27,6 +27,7 @@ public:
 	virtual void Jump() override;
 	virtual void Landed(const FHitResult& Hit) override;
 	void Down();
+	void Dash();
 
 	void ActiveKixsMag();
 
@@ -117,4 +118,5 @@ private:
 	FVector StartLocation;
 	FVector CurrentLocation;
 	bool bIsStuck = false;
+	bool bIsDash = false;
 };
