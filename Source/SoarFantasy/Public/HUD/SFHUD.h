@@ -41,7 +41,10 @@ public:
 	FORCEINLINE USFOverlay* GetSFOverlay() const { return SFOverlay; }
 	FORCEINLINE UEndOverlay* GetEndOverlay() const { return EndOverlay; }
 	FORCEINLINE UStartOverlay* GetStartOverlay() const { return StartOverlay; }
+
 	void OnOffPauseOverlay(bool bOnOff);
 	void OnOffEndOverlay(bool bOnOff);
 	void OnOffStartOverlay(bool bOnOff);
+
+	static bool bHasShownStartOverlay;
 };

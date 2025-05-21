@@ -6,6 +6,9 @@
 #include "HUD/PauseOverlay.h"
 #include "HUD/EndOverlay.h"
 #include "HUD/StartOverlay.h"
+#include "Kismet/GameplayStatics.h"
+
+bool ASFHUD::bHasShownStartOverlay = false;
 
 void ASFHUD::BeginPlay()
 {
@@ -19,6 +22,15 @@ void ASFHUD::BeginPlay()
 		{
 			SFOverlay = CreateWidget<USFOverlay>(Controller, USFOverlayClass);
 			SFOverlay->AddToViewport();
+
+			if (!bHasShownStartOverlay)
+			{
+				OnOffStartOverlay(true);
+				Controller->SetShowMouseCursor(true);
+				UGameplayStatics::SetGamePaused(GetWorld(), true);
+
+				bHasShownStartOverlay = true;
+			}
 		}
 	}
 
@@ -77,16 +89,25 @@ void ASFHUD::OnOffStartOverlay(bool bOnOff)
 		APlayerController* PC = GetWorld()->GetFirstPlayerController();
 		if (PC && UStartOverlayClass)
 		{
+			PC->SetShowMouseCursor(bOnOff);
+			PC->SetPause(bOnOff);
+
 			if (bOnOff)
 			{
-				PC->SetPause(bOnOff);
 				if (!StartOverlay)
 				{
 					StartOverlay = CreateWidget<UStartOverlay>(PC, UStartOverlayClass);
 				}
-				if (StartOverlay)
+				if (StartOverlay && !StartOverlay->IsInViewport())
 				{
 					StartOverlay->AddToViewport();
+				}
+			}
+			else {
+				if (StartOverlay)
+				{
+					StartOverlay->RemoveFromParent();
+					StartOverlay = nullptr;
 				}
 			}
 		}

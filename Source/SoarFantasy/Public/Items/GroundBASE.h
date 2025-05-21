@@ -35,7 +35,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Coin", meta = (ExposeOnSpawn = "true"))
 	int32 CoinCount = 5;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Coin")
-	float CoinSpacing = 40.f;
+	float CoinSpacing = 80.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Coin")
 	TArray<UChildActorComponent*> CoinComponents;
 
