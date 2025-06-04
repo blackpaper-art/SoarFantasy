@@ -4,6 +4,7 @@
 #include "HUD/StartOverlay.h"
 #include "Components/Button.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Characters/Kix/CharactersKix.h"
 
 void UStartOverlay::NativeConstruct()
