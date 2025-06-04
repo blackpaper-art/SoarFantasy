@@ -64,9 +64,9 @@ void ACharactersKix::Tick(float DeltaTime)
 		FVector NewLocation = FMath::VInterpTo(CurrentLocation, StartLocation, DeltaTime, .5f);
 		SetActorLocation(NewLocation);
 	}
-	GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Red, CurrentLocation.ToString());
+	/*GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Red, CurrentLocation.ToString());
 	GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Blue, CurrentLocation.ToString());
-	GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Black, StartLocation.ToString());
+	GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Black, StartLocation.ToString());*/
 
 	if (StartLocation.X - CurrentLocation.X >= 1200 || CurrentLocation.Z <= 0)
 	{
@@ -106,8 +106,8 @@ void ACharactersKix::Jump()
 
 		bDoingDoubleJump = bWillBeDoubleJump;
 
-		GEngine->AddOnScreenDebugMessage(5, 1.f, FColor::Green,
-			FString::Printf(TEXT("bDoingDoubleJump: %s"), bDoingDoubleJump ? TEXT("true") : TEXT("false")));
+		/*GEngine->AddOnScreenDebugMessage(5, 1.f, FColor::Green,
+			FString::Printf(TEXT("bDoingDoubleJump: %s"), bDoingDoubleJump ? TEXT("true") : TEXT("false")));*/
 	}
 }
 
@@ -221,7 +221,7 @@ void ACharactersKix::ActiveKixsMag()
 	}
 	bMagnetActive = true;
 
-	GetWorld()->GetTimerManager().SetTimer(MagnetTimerHandle, this, &ACharactersKix::DeactivateKixsMag, 30.f, false);
+	GetWorld()->GetTimerManager().SetTimer(MagnetTimerHandle, this, &ACharactersKix::DeactivateKixsMag, 15.f, false);
 }
 
 void ACharactersKix::InitializeSFOverlay()
@@ -275,7 +275,7 @@ void ACharactersKix::AddDistanceScore()
 void ACharactersKix::DeactivateKixsMag()
 {
 	bMagnetActive = false;
-	SwitchToNormalMap();
+	//SwitchToNormalMap();
 }
 
 void ACharactersKix::OpenOrClosePauseGameMenu(bool bPauseMenuActivating)
