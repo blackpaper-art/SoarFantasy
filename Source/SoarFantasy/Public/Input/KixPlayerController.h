@@ -10,54 +10,95 @@
 class UInputMappingContext;
 class UInputAction;
 class ACharactersKix;
+
 /**
- * 
+ * ====================================
+ * AKixPlayerController
+ * プレイヤー操作を管理するコントローラ
+ * Player controller for handling player input
+ * ====================================
  */
 
+ // ポーズメニュー状態の列挙型
+ // Enum for pause menu UI state
 UENUM(BlueprintType)
 enum class EPauseUIState : uint8
 {
-	None UMETA(DisplayName = "None"),
-	MainMenu UMETA(DisplayName = "Pause Main"),
-	SubMenu UMETA(DisplayName = "Other Menu"),
+    None UMETA(DisplayName = "None"),
+    MainMenu UMETA(DisplayName = "Pause Main"),
+    SubMenu UMETA(DisplayName = "Other Menu"),
 };
 
 UCLASS()
 class SOARFANTASY_API AKixPlayerController : public APlayerController
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 public:
-	virtual void SetupInputComponent() override;
+    // 入力コンポーネントをセットアップ
+    // Setup input component bindings
+    virtual void SetupInputComponent() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<UInputMappingContext> CurrentMappingContext;
+    // 現在使用する Input Mapping Context
+    // Current input mapping context
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    TObjectPtr<UInputMappingContext> CurrentMappingContext;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<UInputAction> JumpAction;
+    // ジャンプアクション
+    // Jump action
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    TObjectPtr<UInputAction> JumpAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<UInputAction> DownAction;
+    // しゃがむアクション
+    // Down action
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    TObjectPtr<UInputAction> DownAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<UInputAction> DashAction;
+    // ダッシュアクション
+    // Dash action
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    TObjectPtr<UInputAction> DashAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<UInputAction> PauseAction;
+    // ポーズアクション
+    // Pause action
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    TObjectPtr<UInputAction> PauseAction;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	TObjectPtr<ACharactersKix> CurrentChara;
+    // 現在操作しているキャラクター
+    // Currently possessed character
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+    TObjectPtr<ACharactersKix> CurrentChara;
 
-	void SetPauseBoolFalse();
+    // ポーズ状態を初期化
+    // Reset pause flags
+    void SetPauseBoolFalse();
 
-	EPauseUIState CurrentPauseUIState = EPauseUIState::None;
+    // 現在のポーズメニュー状態
+    // Current pause menu UI state
+    EPauseUIState CurrentPauseUIState = EPauseUIState::None;
 
 protected:
-	virtual void OnPossess(APawn* InPawn) override;
-	void Jump();
-	void PauseGame();
-	void Down();
-	void Dash();
+    // ポーン所有時に呼ばれる
+    // Called when possessing a pawn
+    virtual void OnPossess(APawn* InPawn) override;
+
+    // ジャンプ処理
+    // Handle jump input
+    void Jump();
+
+    // ポーズ処理
+    // Handle pause input
+    void PauseGame();
+
+    // しゃがむ処理
+    // Handle down input
+    void Down();
+
+    // ダッシュ処理
+    // Handle dash input
+    void Dash();
 
 private:
-	bool bPauseMenuActivating = false;
+    // ポーズメニューがアクティブかどうか
+    // Whether pause menu is active
+    bool bPauseMenuActivating = false;
 };

@@ -6,21 +6,32 @@
 #include "UObject/Interface.h"
 #include "SoarFantasyInterface.generated.h"
 
-// This class does not need to be modified.
+/**
+ * ====================================
+ * USoarFantasyInterface
+ * SoarFantasy用の共通インターフェース
+ * Common interface for SoarFantasy objects
+ * ====================================
+ */
 UINTERFACE(MinimalAPI)
 class USoarFantasyInterface : public UInterface
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 };
 
 /**
- * 
+ * ====================================
+ * ISoarFantasyInterface
+ * このインターフェースを継承するクラスが実装する機能
+ * Functions that inheriting classes should implement
+ * ====================================
  */
 class SOARFANTASY_API ISoarFantasyInterface
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	virtual void AddCoinScore(int32 Score);
+    // コインスコアを加算する共通関数
+    // Add coin score function (to be overridden)
+    virtual void AddCoinScore(int32 Score);
 };

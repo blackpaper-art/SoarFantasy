@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -6,41 +6,59 @@
 #include "GameFramework/Actor.h"
 #include "MapSpawnerBASE.generated.h"
 
+/**
+ * ====================================
+ * AMapSpawnerBASE
+ * ãƒãƒƒãƒ—ç”Ÿæˆç”¨ã®åŸºåº•ã‚¯ãƒ©ã‚¹
+ * Base class for procedural map spawning
+ * ====================================
+ */
 UCLASS()
 class SOARFANTASY_API AMapSpawnerBASE : public AActor
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
 public:
+    // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    // Constructor
     AMapSpawnerBASE();
 
 protected:
+    // ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã«å‘¼ã°ã‚Œã‚‹
+    // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
-    // Êı¾İ±íÖ¸Õë£¬ÓÃÓÚ¶ÁÈ¡µØÍ¼Êı¾İ£¨½«ÔÚ±à¼­Æ÷ÖĞ°ó¶¨¶ÔÓ¦µÄDataTable×Ê²ú£©
+    // ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«ï¼ˆã‚¨ãƒ‡ã‚£ã‚¿ã§ãƒã‚¤ãƒ³ãƒ‰ï¼‰
+    // Data table pointer to read map data (bind in Editor)
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Map")
     UDataTable* MapDataTable;
 
-    // ÓÃÓÚÉú³ÉÆ½Ì¨¡¢ÕÏ°­ÎïµÄ GroundBASE À¶Í¼£¨BP_Ground£©
+    // ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ ãƒ»éšœå®³ç‰©ç”Ÿæˆã«ä½¿ã† GroundBASE ãƒ–ãƒ«ãƒ¼ãƒ—ãƒªãƒ³ãƒˆ
+    // GroundBASE blueprint used to spawn platforms and obstacles (e.g., BP_Ground)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Map")
     TSubclassOf<class AGroundBASE> GroundBP;
 
-    // µØÍ¼Éú³ÉµÄ»ù×¼Î»ÖÃ£¨½¨ÒéÉèÖÃÎªÉú³ÉÆ÷ Actor µÄÎ»ÖÃ£©
+    // ãƒãƒƒãƒ—ç”ŸæˆåŸºæº–ä½ç½®ï¼ˆã“ã® Actor ã®ä½ç½®ã‚’æ¨å¥¨ï¼‰
+    // Base location for map generation (usually this Actor's position)
     UPROPERTY(EditAnywhere, Category = "Map")
     FVector BaseLocation;
 
-    // Æ½Ì¨³ß´ç£¨³¤,¿í,¸ß£©£¬Ó¦Îª (500, 200, 500)
+    // ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ ã®ã‚µã‚¤ã‚ºï¼ˆå¹…, å¥¥è¡Œã, é«˜ã•ï¼‰
+    // Size of platform (Width, Depth, Height), default (200, 500, 500)
     UPROPERTY(EditAnywhere, Category = "Map")
     FVector PlatformSize = FVector(200.f, 500.f, 500.f);
 
-    // µ±Æ½Ì¨Êı¾İÎª¿ÕÊ±£¬±£ÁôµÄºáÏò¼ä¸ô¿í¶È£¨Ä¬ÈÏ200£©
+    // ãƒ—ãƒ©ãƒƒãƒˆãƒ•ã‚©ãƒ¼ãƒ ãŒç„¡ã„å ´åˆã®é–“éš”
+    // Gap width when no platform exists, default 200
     UPROPERTY(EditAnywhere, Category = "Map")
     float GapWidth = 200.f;
 
-    // ¸ù¾İ DataTable Éú³ÉµØÍ¼
+    // ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«ã‹ã‚‰ãƒãƒƒãƒ—ã‚’ç”Ÿæˆ
+    // Generate map based on DataTable
     void GenerateMap();
 
 public:
+    // Tick é–¢æ•°ï¼ˆã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼‰
+    // Tick function (optional)
     virtual void Tick(float DeltaTime) override;
-
 };

@@ -7,44 +7,89 @@
 #include "SFHUD.generated.h"
 
 /**
- * 
+ * ====================================
+ * ASFHUD
+ * ゲーム内 HUD 管理クラス
+ * In-game HUD manager class
+ * ====================================
  */
 UCLASS()
 class SOARFANTASY_API ASFHUD : public AHUD
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
+
 protected:
-	virtual void BeginPlay() override;
+    // ゲーム開始時に呼ばれる
+    // Called when the game starts
+    virtual void BeginPlay() override;
 
 private:
-	UPROPERTY(EditDefaultsOnly, Category = "SoarFantasy")
-	TSubclassOf<class USFOverlay> USFOverlayClass;
-	UPROPERTY(EditDefaultsOnly, Category = "SoarFantasy")
-	USFOverlay* SFOverlay;
+    // メイン HUD オーバーレイ クラス
+    // Main gameplay overlay class
+    UPROPERTY(EditDefaultsOnly, Category = "SoarFantasy")
+    TSubclassOf<class USFOverlay> USFOverlayClass;
 
-	UPROPERTY(EditDefaultsOnly, Category = "PauseMenu")
-	TSubclassOf<class UPauseOverlay> UPauseOverlayClass;
-	UPROPERTY(EditDefaultsOnly, Category = "PauseMenu")
-	UPauseOverlay* PauseOverlay;
+    // メイン HUD オーバーレイ インスタンス
+    // Main gameplay overlay instance
+    UPROPERTY(EditDefaultsOnly, Category = "SoarFantasy")
+    USFOverlay* SFOverlay;
 
-	UPROPERTY(EditDefaultsOnly, Category = "EndMenu")
-	TSubclassOf<class UEndOverlay> UEndOverlayClass;
-	UPROPERTY(EditDefaultsOnly, Category = "EndMenu")
-	UEndOverlay* EndOverlay;
+    // ポーズメニュー クラス
+    // Pause menu overlay class
+    UPROPERTY(EditDefaultsOnly, Category = "PauseMenu")
+    TSubclassOf<class UPauseOverlay> UPauseOverlayClass;
 
-	UPROPERTY(EditDefaultsOnly, Category = "StartMenu")
-	TSubclassOf<class UStartOverlay> UStartOverlayClass;
-	UPROPERTY(EditDefaultsOnly, Category = "StartMenu")
-	UStartOverlay* StartOverlay;
+    // ポーズメニュー インスタンス
+    // Pause menu overlay instance
+    UPROPERTY(EditDefaultsOnly, Category = "PauseMenu")
+    UPauseOverlay* PauseOverlay;
+
+    // エンドメニュー クラス
+    // End game menu overlay class
+    UPROPERTY(EditDefaultsOnly, Category = "EndMenu")
+    TSubclassOf<class UEndOverlay> UEndOverlayClass;
+
+    // エンドメニュー インスタンス
+    // End game menu overlay instance
+    UPROPERTY(EditDefaultsOnly, Category = "EndMenu")
+    UEndOverlay* EndOverlay;
+
+    // スタートメニュー クラス
+    // Start menu overlay class
+    UPROPERTY(EditDefaultsOnly, Category = "StartMenu")
+    TSubclassOf<class UStartOverlay> UStartOverlayClass;
+
+    // スタートメニュー インスタンス
+    // Start menu overlay instance
+    UPROPERTY(EditDefaultsOnly, Category = "StartMenu")
+    UStartOverlay* StartOverlay;
 
 public:
-	FORCEINLINE USFOverlay* GetSFOverlay() const { return SFOverlay; }
-	FORCEINLINE UEndOverlay* GetEndOverlay() const { return EndOverlay; }
-	FORCEINLINE UStartOverlay* GetStartOverlay() const { return StartOverlay; }
+    // メイン HUD オーバーレイを取得
+    // Get main overlay
+    FORCEINLINE USFOverlay* GetSFOverlay() const { return SFOverlay; }
 
-	void OnOffPauseOverlay(bool bOnOff);
-	void OnOffEndOverlay(bool bOnOff);
-	void OnOffStartOverlay(bool bOnOff);
+    // エンドオーバーレイを取得
+    // Get end overlay
+    FORCEINLINE UEndOverlay* GetEndOverlay() const { return EndOverlay; }
 
-	static bool bHasShownStartOverlay;
+    // スタートオーバーレイを取得
+    // Get start overlay
+    FORCEINLINE UStartOverlay* GetStartOverlay() const { return StartOverlay; }
+
+    // ポーズメニュー表示の切り替え
+    // Toggle pause menu overlay
+    void OnOffPauseOverlay(bool bOnOff);
+
+    // エンドメニュー表示の切り替え
+    // Toggle end menu overlay
+    void OnOffEndOverlay(bool bOnOff);
+
+    // スタートメニュー表示の切り替え
+    // Toggle start menu overlay
+    void OnOffStartOverlay(bool bOnOff);
+
+    // スタートメニューを一度だけ表示するフラグ
+    // Flag to show start overlay only once
+    static bool bHasShownStartOverlay;
 };

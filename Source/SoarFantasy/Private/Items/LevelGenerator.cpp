@@ -1,26 +1,35 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "Items/LevelGenerator.h"
 #include "Items/GroundBASE.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "Engine/World.h"
 
+// ====================================
+// コンストラクタ: Tickを無効化
+// Constructor: disable tick
+// ====================================
 ALevelGenerator::ALevelGenerator()
 {
-	PrimaryActorTick.bCanEverTick = false;
-
-
+    PrimaryActorTick.bCanEverTick = false;
 }
 
+// ====================================
+// BeginPlay: CSVからレベル生成を呼ぶ
+// Called when the game starts: generate level from CSV
+// ====================================
 void ALevelGenerator::BeginPlay()
 {
-	Super::BeginPlay();
-	
+    Super::BeginPlay();
+
+    GenerateLevelFromFile();
 }
 
-
+// ====================================
+// CSVからレベルを生成
+// Generate level blocks based on CSV data
+// ====================================
 void ALevelGenerator::GenerateLevelFromFile()
 {
     TArray<TArray<FString>> CSVData = ParseCSV(LevelFilePath);
@@ -40,6 +49,10 @@ void ALevelGenerator::GenerateLevelFromFile()
     }
 }
 
+// ====================================
+// CSVを二次元配列にパース
+// Parse CSV file to 2D array of strings
+// ====================================
 TArray<TArray<FString>> ALevelGenerator::ParseCSV(const FString& FilePath)
 {
     TArray<TArray<FString>> ParsedCSV;
@@ -61,4 +74,3 @@ TArray<TArray<FString>> ALevelGenerator::ParseCSV(const FString& FilePath)
 
     return ParsedCSV;
 }
-

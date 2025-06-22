@@ -6,27 +6,44 @@
 #include "Engine/DataTable.h"
 #include "MapDataRow.generated.h"
 
+/**
+ * ================================
+ * FMapDataRow
+ * マップ生成用のデータテーブル行
+ * Data table row for procedural map generation
+ * ================================
+ */
 USTRUCT(BlueprintType)
 struct SOARFANTASY_API FMapDataRow : public FTableRowBase
 {
     GENERATED_BODY()
 
-    // 平台数据，比如 "11" 表示1号样式平台且高度为基础高度的1.1倍；
-    // 留空则表示此地图单元不生成平台（但后续障碍物依然可能生成）
+    // プラットフォームのデータ
+    // 例: "11" は 1 番プラットフォームかつ 高さ1.1倍
+    // 空文字列の場合、プラットフォームは生成しない（ただし障害物は生成される可能性あり）
+    // Platform data, e.g., "11" means type 1 platform with height 1.1× base
+    // Empty means no platform (but obstacles may still spawn)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Map Data")
     FString Platform_Layer;
 
-    //Enemy Layer
+    // 敵のデータ
+    // Enemy data
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Map Data")
     FString Enemy_Layer;
 
-    // 金币数据，比如 "15" 表示使用1号金币样式生成5个金币；
-    // 留空则表示该平台上不生成金币
+    // コインのデータ
+    // 例: "15" は 1 番コイン × 5個
+    // 空文字列の場合、コインは生成しない
+    // Coin data, e.g., "15" means type 1 coin × 5 coins
+    // Empty means no coins
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Map Data")
     FString Coin_Layer;
 
-    // 空中障碍物数据，比如 "1" 表示生成1号类型的障碍物，
-    // 生成位置基于平台高度（若平台存在）或基础高度加 1000单位
+    // 空中障害物のデータ
+    // 例: "1" は 1 番空中障害物を生成
+    // 位置はプラットフォームの高さ（あれば）または基準高さ+1000単位
+    // Air obstacle data, e.g., "1" means spawn type 1 aerial obstacle
+    // Position is based on platform height (if exists) or base height + 1000 units
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Map Data")
     FString Air_Layer;
 };

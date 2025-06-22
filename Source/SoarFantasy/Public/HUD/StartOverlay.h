@@ -7,26 +7,40 @@
 #include "StartOverlay.generated.h"
 
 /**
- * 
+ * ================================
+ * UStartOverlay
+ * ゲーム開始画面の UI ウィジェット
+ * UI widget for the game start screen
+ * ================================
  */
 UCLASS()
 class SOARFANTASY_API UStartOverlay : public UUserWidget
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
 protected:
-	virtual void NativeConstruct() override;
+    // ウィジェット構築時に呼ばれる
+    // Called when the widget is constructed
+    virtual void NativeConstruct() override;
 
 private:
-	UPROPERTY(meta = (BindWidget))
-	class UButton* PlayButton;
+    // プレイ開始ボタン
+    // Play button
+    UPROPERTY(meta = (BindWidget))
+    class UButton* PlayButton;
 
-	UFUNCTION()
-	void StartGameButton();
+    // プレイ開始ボタン押下時の処理
+    // Function called when Play button is pressed
+    UFUNCTION()
+    void StartGameButton();
 
-	UPROPERTY(meta = (BindWidget))
-	class UButton* QuitButton;
+    // 終了ボタン
+    // Quit button
+    UPROPERTY(meta = (BindWidget))
+    class UButton* QuitButton;
 
-	UFUNCTION()
-	void QuitGameButton();
+    // 終了ボタン押下時の処理
+    // Function called when Quit button is pressed
+    UFUNCTION()
+    void QuitGameButton();
 };
