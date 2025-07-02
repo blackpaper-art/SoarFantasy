@@ -1,4 +1,3 @@
-123
 # SoarFantasy
 
 ## 📖 Description | 説明
